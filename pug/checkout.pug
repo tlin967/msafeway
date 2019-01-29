@@ -1,0 +1,323 @@
+extends layout.pug
+
+block content
+    // //page
+    // checkout page
+    .privacy
+    br
+    br
+    .container(style="background:white;")
+        // tittle heading
+        br
+        br
+        h1.tittle-w3l.previewName Checkout
+        br
+        // //tittle heading
+        form(class="preview-form col-md-12" action="/preview", method="post" )
+            fieldset.email
+                legend Email
+                br
+                if userInfo
+                    input.email(style="width:50%" type='text' name='email' value=userInfo.email disabled)
+                else
+                    input.email(style="width:50%" type='text' name='email')
+
+            br
+            br
+
+            fieldset.credit-card
+                legend Credit Card
+                script(src='https://js.stripe.com/v3/')
+
+                .container
+
+                div#payment-form(action="/preview" method='post')
+
+                    .form-row
+
+                    label(for='card-element')
+                        | 
+
+                    #card-element
+
+                        // A Stripe Element will be inserted here.
+
+                        // Used to display form errors.
+
+                    #card-errors(role='alert')
+
+                    //- button Submit Payment
+
+            br
+            br
+            
+            fieldset.billing-address
+                legend Billing Address
+                label
+                | Name
+                br
+                input.name(style="width:50%;" type='text' name='billing-name')
+                br
+                br
+                label
+                | Street
+                br
+                input.street(style="width:50%" type='text' name='billing-address')
+                br
+                br
+                label
+                | City
+                br
+                input.city(style="width:50%" type='text' name='billing-city')
+                br
+                br
+                label
+                | State
+                br
+                input.state(style="width:50%" type='text' name='billing-state')
+                br
+                br
+                label
+                | Zip
+                br
+                input.zip(style="width:50%" type='text' name='billing-zip')
+                br
+                br
+                label
+                | Country
+                br
+                input.country(style="width:50%" type='text' name='billing-country')
+
+            br
+            br
+
+            input(type="checkbox" name="delivery-same-as-billing" value="true") 
+            Use same address as billing
+            br
+            br
+            fieldset.delivery-address
+                legend Delivery Address
+                label
+                | Name
+                br
+                if userInfo
+                input.name(style="width:50%" type='text' name='delivery-name')
+                label
+                br
+                br
+                | Street
+                br
+                input.street(style="width:50%" type='text' name='delivery-address')
+                label
+                br
+                br
+                | City
+                br
+                input.city(style="width:50%" type='text' name='delivery-city')
+                label
+                br
+                br
+                | State
+                br
+                input.state(style="width:50%" type='text' name='delivery-state')
+                label
+                br
+                br
+                | Zip
+                br
+                input.zip(style="width:50%" type='text' name='delivery-zip')
+                label
+                br
+                br
+                | Country
+                br
+                input.country(style="width:50%" type='text' name='delivery-country')
+                
+
+            .preview
+            
+                input(type="hidden", name="cart" value="") 
+                input(type="hidden", name="cartOrder" value="")
+                input(type="hidden", name="promoCode" value="")
+                button(class="continueButton")
+                    | Preview
+                label.submit-error
+
+
+
+block specific-script
+    script(src="/checkout.js")
+    style.
+
+      .style{background:grey}
+
+      .StripeElement {
+
+      background-color: white;
+
+      height: 1.5em;
+
+      padding: 10px 12px;
+
+      border-radius: 4px;
+
+      border: 1px solid transparent;
+
+      box-shadow: 0 1px 3px 0 #e6ebf1;
+
+      -webkit-transition: box-shadow 150ms ease;
+
+      transition: box-shadow 150ms ease;
+
+      }
+
+      .StripeElement--focus {
+
+      box-shadow: 0 1px 3px 0 #cfd7df;
+
+      }
+
+      .StripeElement--invalid {
+
+      border-color: #fa755a;
+
+      }
+
+      .StripeElement--webkit-autofill {
+
+      background-color: #fefde5 !important;
+
+      }
+
+      
+
+      
+
+      
+
+    script.
+
+      // Create a Stripe client.
+
+      var stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+
+      // Create an instance of Elements.
+
+      var elements = stripe.elements();
+
+      // Custom styling can be passed to options when creating an Element.
+
+      // (Note that this demo uses a wider set of styles than the guide below.)
+
+      var style = {
+
+      base: {
+
+      color: '#32325d',
+
+      lineHeight: '18px',
+
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+
+      fontSmoothing: 'antialiased',
+
+      fontSize: '16px',
+
+      '::placeholder': {
+
+      color: '#aab7c4'
+
+      }
+
+      },
+
+      invalid: {
+
+      color: '#fa755a',
+
+      iconColor: '#fa755a'
+
+      }
+
+      };
+
+      // Create an instance of the card Element.
+
+      var card = elements.create('card', {style: style});
+
+      // Add an instance of the card Element into the `card-element` <div>.
+
+      card.mount('#card-element');
+
+      // Handle real-time validation errors from the card Element.
+
+      card.addEventListener('change', function(event) {
+
+      var displayError = document.getElementById('card-errors');
+
+      if (event.error) {
+
+      displayError.textContent = event.error.message;
+
+      } else {
+
+      displayError.textContent = '';
+
+      }
+
+      });
+
+      // Handle form submission.
+
+      var form = document.getElementById('payment-form');
+
+      form.addEventListener('submit', function(event) {
+
+      event.preventDefault();
+
+      stripe.createToken(card).then(function(result) {
+
+      if (result.error) {
+
+      // Inform the user if there was an error.
+
+      var errorElement = document.getElementById('card-errors');
+
+      errorElement.textContent = result.error.message;
+
+      } else {
+
+      // Send the token to your server.
+
+      stripeTokenHandler(result.token);
+
+      }
+
+      });
+
+      });
+
+      // Submit the form with the token ID.
+
+      function stripeTokenHandler(token) {
+
+      // Insert the token ID into the form so it gets submitted to the server
+
+      var form = document.getElementById('payment-form');
+
+      var hiddenInput = document.createElement('input');
+
+      hiddenInput.setAttribute('type', 'hidden');
+
+      hiddenInput.setAttribute('name', 'stripeToken');
+
+      hiddenInput.setAttribute('value', token.id);
+
+      form.appendChild(hiddenInput);
+
+      // Submit the formk
+
+      form.submit();
+
+      }
+    

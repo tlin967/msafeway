@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+      title
+      // /tags
+      meta(name='viewport' content='width=device-width, initial-scale=1')
+      meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
+      script(src='https://unpkg.com/axios/dist/axios.min.js')
+
+      script.
+        function authentication() {
+        axios({
+        method: 'get',
+        url: '/authentication',
+        //config: {headers: {'Content-Type': 'multipart/form-data'}}
+        })
+        .then((server_response) => {
+        console.log(server_response);
+        if(server_response.data === true) {
+        console.log("IT WoRKS");
+        document.getElementById("accountPage").style.display = "";
+        document.getElementById("orderHistoryPage").style.display = "";
+        document.getElementById("signIn").style.display="none";
+        document.getElementById("signOut").style.display="";
+        }
+        else {
+        console.log("It dontwork");
+        document.getElementById("accountPage").style.display = "none";
+        document.getElementById("orderHistoryPage").style.display = "none";
+        document.getElementById("signIn").style.display="";
+        document.getElementById("signOut").style.display="none";
+        }
+        })
+        }
+        authentication();
+
+      script.
+        addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+        window.scrollTo(0, 1);
+        }
+      base(href='/')
+      // //tags
+      link(href='/public/css/bootstrap.css' rel='stylesheet' type='text/css' media='all')
+      link(rel='stylesheet' type='text/css' href='/public/css/style.css')
+      link(href='/public/css/font-awesome.css' rel='stylesheet')
+      // pop-up-box
+      link(href='/public/css/popuo-box.css' rel='stylesheet' type='text/css' media='all')
+      // //pop-up-box
+      // price range
+      link(rel='stylesheet' type='text/css' href='/public/css/jquery-ui1.css')
+      // fonts
+      link(href='//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800' rel='stylesheet')
+      block style
+          style(type='text/css').
+
+
+
+             .previewName{
+                  padding-top:1rem;
+                  padding-left:1rem;
+                  color: #000;
+
+                  font-size: 3rem;
+                  font-weight: 400;
+
+                  letter-spacing: 1px;
+                  min-height:5rem;
+
+             }
+             .orderTotalPricePreview{
+
+                font-size:1.5rem;
+                padding-top:5rem;
+             }
+             .confirm-form{
+                background:white;
+                padding-bottom:5rem;
+             }
+
+             .orderTotalPricePreview{
+
+             }
+             legend{
+                font-size:1.5rem;
+             }
+
+             .preview-form{
+                background:white;
+                padding: 4rem 4rem 5rem 4rem;
+             }
+            //everything below is cart
+
+             .continueButton{
+                border: none;
+                padding: 10px 10px 10px 40px;
+                font-size: 14px;
+                outline: none;
+                text-transform: uppercase;
+                margin: 0;
+                font-weight: 700;
+                letter-spacing: 1px;
+                background: #1accfd;
+                color: #fff;
+                margin: 20px 0;
+                padding-right:2rem;
+             }
+
+             .continueButton{
+                border: none;
+                padding: 10px 10px 10px 40px;
+                font-size: 14px;
+                outline: none;
+                text-transform: uppercase;
+                margin: 0;
+                font-weight: 700;
+                letter-spacing: 1px;
+                background: #1accfd;
+                color: #fff;
+                margin: 20px 0;
+                padding-right:2rem;
+             }
+
+             .promo{
+                    background: white;
+              }
+
+             .discountButton{
+
+               font-size:.8rem;
+             }
+
+             .checkout{
+                background: white;
+             }
+             .orderTotalPrice{
+                font-size: 3rem;
+                background:white;
+             }
+             .timetable_sub{
+                background: white;
+             }
+
+             .cartImage{
+                    max-width:8rem;
+                    max-height:8rem;
+             }
+
+            
+             //everything below is product.js
+             label{
+                 
+             }
+
+             .sort-by{
+                 display: inline-block;
+                 text-transform: uppercase;
+                 color: #000;
+                 font-size: 0.9em;
+                 font-weight: 600;
+                 letter-spacing: 1px;
+             }
+             #prev-product-page{
+                 text-transform: uppercase;
+                 font-size: 0.9em;
+                 font-weight: 600;
+                 letter-spacing: 1px;
+             }
+             #next-product-page{
+                 text-transform: uppercase;
+                 font-size: 0.9em;
+                 font-weight: 600;
+                 letter-spacing: 1px;
+             }
+              
+             .pagination{
+              margin:0px;
+             }
+
+             .pageNumberCSS{
+              min-height:4rem;
+              position:fixed;
+                 left:0px;
+                 bottom:0px;
+                 height:20px;
+                 width:100%;
+                 background:#f3f3f3;
+                 z-index:1;
+                 text-align: center;
+             }
+
+              .prev-product-page{
+              border: none;
+                  padding: 10px 40px;
+                  font-size: 14px;
+                  outline: none;
+                  text-transform: uppercase;
+                  margin: 0;
+                  font-weight: 700;
+                  letter-spacing: 1px;
+                  background: #1accfd;
+                  color: #fff;
+                  margin: 20px 0;
+
+              }
+
+              .inputNumber{
+                font-size:.7rem;
+              }
+              .signUpButton{
+                  border: none;
+                  padding: 10px 40px;
+                  font-size: 14px;
+                  outline: none;
+                  text-transform: uppercase;
+                  margin: 0;
+                  font-weight: 700;
+                  letter-spacing: 1px;
+                  background: #1accfd;
+                  color: #fff;
+                  margin: 20px 0;
+
+              
+              }
+
+
+              .products-list {
+                  box-shadow: 0px 0px .5px 2px #D6D6D6;
+                  background:white;
+
+
+                  margin-bottom: 14px;
+
+              }
+              .product {
+                  background:white;
+
+                  position:relative;
+                  text-align: center;
+                  display: block;
+                  min-height:35rem;
+
+
+              }
+
+              #navbar-cart{
+              color:white;
+              }
+
+              .product-image{
+                  max-width:250px; 
+                  max-height: 250px;
+              }
+
+              .product-name {
+                  padding-top:1rem;
+                  color: #000;
+
+                  font-size: 1.3rem;
+                  font-weight: 400;
+
+                  letter-spacing: 1px;
+                  min-height:5rem;
+              }
+
+              .product-price {
+                  color: #d60404;
+                  font-size: 18px;
+                  padding-bottom: 1rem;
+              }
+
+              .add-to-cart{
+                  font-size: 1rem;
+                  color: #fff;
+                  background: #1accfd;
+                  text-decoration: none;
+                  position: relative;
+                  border: none;
+                  border-radius: 0;
+                  width: 100%;
+                  text-transform: uppercase;
+                  padding: 1rem;
+                  outline: none;
+                  letter-spacing: 1px;
+                  font-weight: 600;
+
+              }
+
+              .add-to-cart-page{
+                  font-size: 1rem;
+                  color: #fff;
+                  background: #1accfd;
+                  text-decoration: none;
+                  border: none;
+                  border-radius: 0;
+                  text-transform: uppercase;
+                  padding: 1rem;
+                  outline: none;
+                  letter-spacing: 1px;
+                  font-weight: 600;
+
+              }
+
+              .add-to-cart-order{
+                  font-size: 0.8rem;
+                  color: #fff;
+                  background: #1accfd;
+                  text-decoration: none;
+                  position: relative;
+                  border: none;
+                  border-radius: 0;
+                  width: 90%;
+                  text-transform: uppercase;
+                  padding: 1rem;
+                  outline: none;
+                  letter-spacing: 1px;
+                  font-weight: 600;
+
+              }
+
+
+
+                @media (max-width:1160px){
+                
+                }
+
+               @media (max-width: 600px) {
+
+                  .discountButton{
+
+                    font-size:.7rem;
+                  }
+                  .orderTotalPrice{
+                    font-size: 1.5rem;
+                    background: white;
+                  }
+
+                  .promo{
+                    background: white;
+                  }
+                  
+                  .cartImage{
+                    max-width:4rem;
+                    max-height:4rem;
+                  }
+                  
+
+                  .results-per-page{
+                    font-size:0.8rem;
+                  }
+
+                  .sort-by{
+                    font-size:0.8rem;
+                  }
+
+                  label{
+                    font-size: 0.8rem;
+                  }
+
+
+                  .product {
+                      background:white;
+
+                  position:relative;
+                  text-align: center;
+                  display: block;
+                  min-height:17rem;
+
+
+                  }
+
+                  .product-image{
+                      max-width:20rem; 
+                      max-height: 10rem;
+                  }
+
+                  .product-name {
+                      padding-top:.5rem;
+                      color: #000;
+
+                      font-size: .6rem;
+                      font-weight: 600;
+
+                      letter-spacing: 0.5px;
+                      min-height:2.5rem;
+                  }
+
+                  .product-price {
+                      color: #d60404;
+                      font-size: 0.6rem;
+                      padding-bottom: 1rem;
+                  }
+
+                  .add-to-cart{
+                      font-size: 0.5rem;
+                      color: #fff;
+                      background: #1accfd;
+                      text-decoration: none;
+                      position: relative;
+                      border: none;
+                      border-radius: 0;
+                      width: 100%;
+                      text-transform: uppercase;
+                      padding: 1rem;
+                      outline: none;
+                      letter-spacing: 1px;
+                      font-weight: 600;
+
+                  }
+
+                  .add-to-cart-order{
+                      font-size: 0.5rem;
+                      color: #fff;
+                      background: #1accfd;
+                      text-decoration: none;
+                      position: relative;
+                      border: none;
+                      border-radius: 0;
+                      width: 100%;
+                      text-transform: uppercase;
+                      padding: 1rem;
+                      outline: none;
+                      letter-spacing: 1px;
+                      font-weight: 600;
+
+                  }
+
+                  .add-to-cart-page{
+                      font-size: 0.5rem;
+                      color: #fff;
+                      background: #1accfd;
+                      text-decoration: none;
+                      position: relative;
+                      border: none;
+                      border-radius: 0;
+                      text-transform: uppercase;
+                      padding: 1rem;
+                      outline: none;
+                      letter-spacing: 1px;
+                      font-weight: 600;
+
+                  }
+              }
+
+              
+
+
+ 
+
+    body
+        block navbar
+            
+
+
+            nav.navbar.navbar-fixed-top
+              .header-most-top
+                .col-md-12.header.text-right
+                  // header lists
+                  ul#navList(style='text-align: center;')
+                    li(class="col-md-5")
+                    li(class="col-md-1" style='text-align: center;')
+                      a(href='/about-us')
+                        | About Us
+                    li(class="col-md-1" style='text-align: center;')
+                      a(href='/')
+                        span(aria-hidden='true')
+                        | Home
+                    li#accountPage(class="col-md-1" style='text-align: center; display:none;')
+                      a(href='/edit-account')
+                        span(aria-hidden='true')
+                        | Account
+                    li#orderHistoryPage(class="col-md-1" style='text-align: center; display:none')
+                      a(href='/order-history')
+                        span(aria-hidden='true')
+                        | Order History
+                    li#signIn(class="col-md-1" style='text-align: center; display: visible')
+                      a(href='#' data-toggle='modal' data-target='#myModal1')
+                        span(aria-hidden='true')
+                        | Sign In
+                    li#signOut(class="col-md-1" style='text-align: center; display:none; ')
+                      a(onclick='signOut()' href='/')
+                      .logout.wrapper
+                        .post
+                          .content
+                            form
+                              button.action-button(type='button' href='/' style='padding-top:-5px;border-style:none; background-color:transparent; color:white;') Logout
+                              
+                    li(class="col-md-1" name="cart" id="navbar-cart")
+                        form(action="/cart", method="post" id="navbar-cart-form")
+                            input(type="hidden", name="cart" value="") 
+                            input(type="hidden", name="cartOrder" value="")
+                        | Cart
+                  // //header lists
+                  .clearfix
+              // //top-header
+              // header-bot
+              .header-bot
+                .header-bot_inner_wthreeinfo_header_mid
+                  // header-bot
+                  .col-md-3.logo_agile
+                    h1(style='padding-top:.05em;')
+                      a(href='/')
+                        span S
+                        | JSU
+                        span M
+                        | arket
+                        img(style='max-width: 40px; height: auto; ' src='/public/images/safeway-logo.png' alt=' ')
+                  // header-bot
+                  .col-md-9.header(style='padding-top: .1em;')
+                    .dropdown.col-md-3(style='display:inline;')
+                      button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle(style='background:transparent;' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                        | Food 
+                        span.caret
+                      ul.dropdown-menu.col-md-4(aria-labelledby='dropdownMenuButton')
+                        li
+                          a(href='/products?category=Bread & Bakery') Bread &amp; Bakery
+                        br
+                        li
+                          a(href='/products?category=Breakfast & Cereal') Breakfast &amp; Cereal
+                        br
+                        li
+                          a(href='/products?category=Canned Goods & Soups') Canned Goods &amp; Soups
+                        br
+                        li
+                          a(href='/products?category=Condiments, Spice & Bake') Condiments, Spice &amp; Bake
+                        br
+                        li
+                          a(href='/products?category=Cookies, Snacks & Candy') Cookies, Snacks &amp; Candy
+                        br
+                        li
+                          a(href='/products?category=Dairy, Eggs & Cheese') Dairy, Eggs &amp; Cheese
+                        br
+                        li
+                          a(href='/products?category=Deli') Deli
+                        br
+                        li
+                          a(href='/products?category=Frozen Foods') Frozen Foods
+                        br
+                        li
+                          a(href='/products?category=Fruits & Vegetables') Fruits &amp; Vegetables
+                        br
+                        li
+                          a(href='/products?category=Grains, Pasta & Sides') Grains, Pasta &amp; Sides
+                        br
+                        li
+                          a(href='/products?category=International Cuisine') International Cuisine
+                        br
+                        li
+                          a(href='/products?category=Meat & Seafood') Meat &amp; Seafood
+                    .dropdown.col-md-4(style='display:inline;')
+                      button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle(style='background:transparent;' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                        | Beverages 
+                        span.caret
+                      ul.dropdown-menu(aria-labelledby='dropdownMenuButton')
+                        li
+                          a(href='/products?category=Beverages') Beverages
+                        br
+                        li
+                          a(href='/products?category=Wine') Wine
+                        br
+                        li
+                          a(href='/products?category=Beer & Spirits') Beer &amp; Spirits
+                        br
+
+                    .dropdown.col-md-4(style='display:inline;')
+                      button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle(style='background:transparent;' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                        | Household 
+                        span.caret
+                      ul.dropdown-menu(aria-labelledby='dropdownMenuButton')
+                        li
+                          a(href='/products?category=Baby Care') Baby Care
+                        br
+                        li
+                          a(href='/products?category=Paper, Cleaning & Home') Paper, Cleaning &amp; Home
+                        br
+                        li
+                          a(href='/products?category=Personal Care & Health') Personal Care &amp; Health
+                        br
+                        li
+                          a(href='/products?category=Pet Care') Pet Care
+                    form.form-inline(style='padding-top: .4em;' action='/products')
+                      input.form-control.form-control-sm.mr-2.w-100(type='text' placeholder='Search' aria-label='Search' style='width:95%' name='searchTerm')
+                    // //header lists
+                    // search
+                    // //search
+                    .clearfix
+                  .clearfix
+
+              .alert.alert-success.alert-dismissable
+                input.close(type='button' data-dismiss='alert' aria-hidden='true')
+                | &times;
+                |              Added To Cart.
+            // shop locator (popup)
+            // //shop locator (popup)
+            // signin Model
+            // Modal1
+            #myModal1.modal.fade(tabindex='-1' role='dialog')
+              .modal-dialog
+                // Modal content
+                .modal-content
+                  .modal-header
+                    button.close(type='button' data-dismiss='modal') &times;
+                  .modal-body.modal-body-sub_agile
+                    .main-mailposi
+                      span.fa.fa-envelope-o(aria-hidden='true')
+                    .modal_body_left.modal_body_left1
+                      h3.agileinfo_sign Sign In 
+                      p
+                        | Sign In now. Don&apos;t have an account? 
+                        a(href='#' data-toggle='modal' data-target='#myModal2')
+                          | Sign Up Now
+                      .login.wrapper
+                        .post
+                          h2
+                          br
+                          .content
+                            form
+                              label
+                                | Email
+                                input(type='email' name='email' required='')
+                              br
+                              label
+                                | Password
+                                input(type='password' name='password' required='')
+                              br
+                              button#logInButton.action-button(type='submit') Log In
+                              br
+                            footer.response()
+                              section.response-section
+                      p
+                        a(href='#' data-toggle='modal' data-target='#myModal3')
+                          | Forgot your password?
+                // //Modal content
+            // //Modal1
+            // //signin Model
+            // signup Model
+            // Modal2
+            #myModal2.modal.fade(tabindex='-1' role='dialog')
+              .modal-dialog
+                // Modal content
+                .modal-content
+                  .modal-header
+                    button.close(type='button' data-dismiss='modal') &times;
+                  .modal-body.modal-body-sub_agile
+                    .main-mailposi
+                      span.fa.fa-envelope-o(aria-hidden='true')
+                    .modal_body_left.modal_body_left1
+                      h3.agileinfo_sign Sign Up
+                      p
+                        | Come join SJSU Market! Let&apos;s set up your Account.
+                      .signup.wrapper
+                        .signup.wrapper
+                          .post
+                            h2
+                            .content
+                              form
+                                label
+                                  | Email
+                                  input(type='email' name='email')
+                                br
+                                label
+                                  | Username
+                                  input(type='text' name='username')
+                                br
+                                label
+                                  | Password
+                                  input(type='password' name='password')
+                                br
+                                button.action-button.signUpButton(type='button') Sign Up
+                                br
+                              footer.response(style='display:none')
+                                | Response
+                                section.response-section
+                // //Modal content
+            // //Modal2
+            #myModal3.modal.fade(tabindex='-1' role='dialog')
+              .modal-dialog
+                // Modal content
+                .modal-content
+                  .modal-header
+                    button.close(type='button' data-dismiss='modal') &times;
+                  .modal-body.modal-body-sub_agile
+                    .main-mailposi
+                      span.fa.fa-envelope-o(aria-hidden='true')
+                    .modal_body_left.modal_body_left1
+                      h3.agileinfo_sign WE CAN HELP.
+                      .recovery.wrapper
+                        .post
+                          h2 Forgot Password
+                          br
+                          br
+                          .content
+                            form
+                              label Email
+                              input(type='email' name='email' required='')
+                              button#forgotButton.action-button(data-dismiss='modal' type='submit') Recover Password
+                            footer
+                              .response(style='display:none')
+                                | Response 
+                                section.response-section
+
+                // //Modal content
+            // //signup Model
+            // //header-bot
+            // navigation
+            div
+              br
+              br
+              br
+              br
+              br
+              br
+              
+
+        div(class="content")
+            block content
+
+        block foot
+            #footer
+
+block specific-script
+
+script(src="/layout.js")
+script(src="/product.js")
+
+script.
+  // These lines of code register an html element, in this case, a button, with a corresponding function that will be run when the button is clicked.
+  document.querySelector("div.signup button").addEventListener("click", signUp)
+  document.querySelector("div.login button").addEventListener("click", login)
+  document.querySelector("div.logout button").addEventListener("click", logout)
+  document.querySelector("div.recovery button").addEventListener("click", postRecoveryData)
+  /*
+  EXAMPLE HTML JAVASCRIPT FUNCTION LINK
+  document.querySelector("div.SAMPLE-CLASS button").addEventListener("click", doSomething)
+  */
+  /* EXAMPLE JAVASCRIPT FUNCTION
+  function doSomething() {
+  var myForm = document.querySelector("div.SAMPLE-CLASS form")
+  var responseFooter = document.querySelector("div.SAMPLE-CLASS footer section.response-section")
+  console.log(myForm)
+  console.log(responseFooter)
+  var formData = new FormData(myForm)
+  // POST THE FORM DATA USING METHOD OF CHOOSING ie fetch/axios
+  axios({
+  method: 'post',
+  url: '/SOME-PATH-ON-SERVER',
+  data: formData,
+  config: { headers: { 'Content-Type': 'multipart/form-data' } }
+  })
+  .then( (server_response)=>{
+  console.log(server_response)
+  console.log(server_response.data)
+  // ASSUMING SERVER SENDS A RESPONSE BACK
+  response.innerHTML = server_response.status + "\\n" + JSON.stringify(server_response.data)
+  // OPTIONALLY DO SOMETHING WITH RESPONSE TO SERVER
+  })
+  }
+  */
+  /* POSSIBLE DEPRECATED EXAMPLE
+  function getRecoveryEmailAsJSONObject() {
+  var myForm = document.getElementById('recover-password-email-form');
+  console.log(myForm)
+  var formData = new FormData(myForm)
+  return formData
+  }
+  // This function uses fetch to make a http POST request that contains the form data, and sends the request to the server
+  function postRecoveryData() {
+  url = "/recovery"
+  console.log("hello")
+  data = getRecoveryEmailAsJSONObject()
+  console.log(data)
+  // Default options are marked with *
+  return fetch(url, {
+  method: "POST", // *GET, POST, PUT, DELETE, etc.
+  // headers: {
+  //     "Content-Type": "application/json; charset=utf-8",
+  //     // "Content-Type": "application/x-www-form-urlencoded",
+  // },
+  redirect: "follow", // manual, *follow, error
+  referrer: "no-referrer", // no-referrer, *client
+  body: data, // body data type must match "Content-Type" header
+  })
+  .then(response => {
+  let section = document.getElementById("recover-password-response")
+  section.innerHTML = ` ${response.status} ${response.statusText}`
+  response.json()  // parses response to JSON
+  // might not be needed if no json returned in response
+  .then(body => {
+  // doesnt get here when theres no json response above
+  console.log("world")
+  if (response.status != 200) {
+  console.log("error")
+  }
+  })
+  });
+  }
+  */
+  function preventAutomaticGETRequestForTypeEqualsSubmit(e){
+  e.preventDefault()
+  }
+  function postRecoveryData() {
+  console.log("YEET")
+  url = "/recovery"
+  console.log("hello")
+  var myForm = document.querySelector("div.recovery form")
+  // https://triangle717.wordpress.com/2015/12/14/js-avoid-duplicate-listeners/
+  myForm.addEventListener('submit', preventAutomaticGETRequestForTypeEqualsSubmit)
+  // myForm.removeEventListener('submit', preventAutomaticGETRequestForTypeEqualsSubmit)
+  if (!myForm.checkValidity()) {
+  return
+  }
+  console.log("form valid")
+  console.log(myForm)
+  formData = new FormData(myForm)
+  console.log(formData)
+  var response = document.querySelector("div.recovery footer section.response-section")
+  var responseFooter = document.querySelector("div.recovery footer section.response-section")
+  console.log(responseFooter)
+  // Default options are marked with *
+  return fetch(url, {
+  method: "POST", // *GET, POST, PUT, DELETE, etc.
+  headers: {
+  //     "Content-Type": "application/json; charset=utf-8",
+  // "Content-Type": "application/x-www-form-urlencoded",
+  // "Content-Type": 'multipart/form-data', // dont need this in multi-form bc alreadeey set
+  // https://stackoverflow.com/questions/35192841/fetch-post-with-multipart-form-data#35206069
+  },
+  redirect: "follow", // manual, *follow, error
+  referrer: "no-referrer", // no-referrer, *client
+  body: formData, // body data type must match "Content-Type" header
+  })
+  .then(server_response => {
+  response.innerHTML = ` ${server_response.status} ${server_response.statusText}`
+  console.log(server_response.body)
+  // server_response.json()  // parses response to JSON
+  //   // might not be needed if no json returned in response
+  //   .then(body => {
+  //     // doesnt get here when theres no json response above
+  //     console.log("world")
+  //     if (server_response.status != 200) {
+  //       console.log("error")
+  //     }
+  //   })
+  });
+  }
+  // This function uses axios, an external npm module to create the POST request and send the form data to the server.
+  function signUp() {
+  var myForm = document.querySelector("div.signup form")
+  var response = document.querySelector("div.signup footer section.response-section")
+  //Rudimentary checks to ensure that these signup fields (email, username, password) are not empty.
+  if (myForm.email.value == "")
+  {
+  window.alert("Please enter your email.");
+  myForm.email.focus();
+  return false;
+  }
+  if (myForm.username.value == "")
+  {
+  window.alert("Please enter your username.");
+  myForm.username.focus();
+  return false;
+  }
+  if (myForm.password.value == "")
+  {
+  window.alert("Please enter your password.");
+  myForm.password.focus();
+  return false;
+  }
+  console.log(myForm)
+  var formData = new FormData(myForm)
+  axios({
+  method: 'post',
+  url: '/signup',
+  data: formData,
+  config: { headers: { 'Content-Type': 'multipart/form-data' } }
+  })
+  .then( (server_response)=>{
+  // response.innerHTML = JSON.parse(server_response.data)
+  console.log(server_response)
+  console.log(server_response.data)
+  response.innerHTML = server_response.status + "\\n" + JSON.stringify(server_response.data)
+  // `Status ${server_response.status}
+  if (server_response.status == 400){
+  }
+  else {
+  location.reload();
+  }
+  })
+  .catch(function(error){
+  if(error.response){
+  console.log(error.response.data);
+  console.log(error.response.status);
+  console.log(error.response.headers);
+  response.innerHTML = error.response.status + "\\n" + error.response.data
+  }
+  })
+  }
+  function login() {
+  var myForm = document.querySelector("div.login form")
+  myForm.addEventListener('submit', function(e){
+  e.preventDefault()
+  })
+  if (! myForm.checkValidity()){
+  return
+  }
+  console.log("form valid")
+  var response = document.querySelector("div.login footer section.response-section")
+  console.log(myForm)
+  var formData = new FormData(myForm)
+  axios({
+  method: 'post',
+  url: '/login',
+  data: formData,
+  config: { headers: { 'Content-Type': 'multipart/form-data' } }
+  })
+  .then( (server_response)=>{
+  // response.innerHTML = JSON.parse(server_response.data)
+  console.log(server_response)
+  console.log(server_response.data)
+  response.innerHTML = server_response.status + "\\n" + JSON.stringify(server_response.data)
+  location.reload();
+  // `Status ${server_response.status}
+  //location.reload(forceGet);
+  })
+  .catch(function(error){
+  if(error.response){
+  console.log(error.response.data);
+  console.log(error.response.status);
+  console.log(error.response.headers);
+  if (error.response.status == 401){
+  response.innerHTML = "Invalid email and/or password"
+  }
+  }
+  })
+  }
+  function logout() {
+  var myForm = document.querySelector("div.logout form")
+  myForm.addEventListener('submit', function(e){
+  e.preventDefault()
+  })
+  if (! myForm.checkValidity()){
+  return
+  }
+  console.log("form valid")
+  location.reload();
+  var response = document.querySelector("div.logout footer section.response-section")
+  console.log(myForm)
+  var formData = new FormData(myForm)
+  axios({
+  method: 'get',
+  url: '/logout',
+  data: formData,
+  config: { headers: { 'Content-Type': 'multipart/form-data' } }
+  })
+  .then( (server_response)=>{
+  // response.innerHTML = JSON.parse(server_response.data)
+  console.log(server_response)
+  console.log(server_response.data)
+  response.innerHTML = server_response.status + "\\n" + JSON.stringify(server_response.data)
+  // `Status ${server_response.status}
+  })
+  .catch(function(error){
+  if(error.response){
+  console.log(error.response.data);
+  console.log(error.response.status);
+  console.log(error.response.headers);
+  response.innerHTML = error.response.status + "\\n" + error.response.data
+  }
+  })
+  }
+script.
+  function authentication() {
+  axios({
+  method: 'get',
+  url: '/authentication',
+  //config: {headers: {'Content-Type': 'multipart/form-data'}}
+  })
+  .then((server_response) => {
+  console.log(server_response);
+  if(server_response.data === true) {
+  console.log("IT WoRKS");
+  document.getElementById("accountPage").style.display = "";
+  document.getElementById("orderHistoryPage").style.display = "";
+  document.getElementById("signIn").style.display="none";
+  document.getElementById("signOut").style.display="";
+  }
+  else {
+  console.log("It dontwork");
+  document.getElementById("accountPage").style.display = "none";
+  document.getElementById("orderHistoryPage").style.display = "none";
+  document.getElementById("signIn").style.display="";
+  document.getElementById("signOut").style.display="none";
+  }
+  })
+  }
+  authentication();
+// js-files
+// jquery
+script(src='/public/js/jquery-2.1.4.min.js')
+// //jquery
+// popup modal (for signin & signup)
+script(src='/public/js/jquery.magnific-popup.js')
+script.
+  $(document).ready(function () {
+  $('.popup-with-zoom-anim').magnificPopup({
+  type: 'inline',
+  fixedContentPos: false,
+  fixedBgPos: true,
+  overflowY: 'auto',
+  closeBtnInside: true,
+  preloader: false,
+  midClick: true,
+  removalDelay: 300,
+  mainClass: 'my-mfp-zoom-in'
+  });
+  });
+// Large modal
+//
+  <script>
+  $('#').modal('show');
+  </script>
+// //popup modal (for signin & signup)
+// cart-js
+script(src='/public/js/minicart.js')
+script.
+  paypalm.minicartk.render(); //use only unique class names other than paypalm.minicartk.Also Replace same class name in css and minicart.min.js
+  paypalm.minicartk.cart.on('checkout', function (evt) {
+  var items = this.items(),
+  len = items.length,
+  total = 0,
+  i;
+  // Count the number of each item in the cart
+  for (i = 0; i < len; i++) {
+  total += items[i].get('quantity');
+  }
+  if (total < 3) {
+  alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
+  evt.preventDefault();
+  }
+  });
+// //cart-js
+// price range (top products)
+script(src='/public/js/jquery-ui.js')
+script.
+  //<![CDATA[
+  $(window).load(function () {
+  $("#slider-range").slider({
+  range: true,
+  min: 0,
+  max: 9000,
+  values: [50, 6000],
+  slide: function (event, ui) {
+  $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+  }
+  });
+  $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+  }); //]]>
+// //price range (top products)
+// flexisel (for special offers)
+script(src='/public/js/jquery.flexisel.js')
+script.
+  $(window).load(function () {
+  $("#flexiselDemo1").flexisel({
+  visibleItems: 3,
+  animationSpeed: 1000,
+  autoPlay: true,
+  autoPlaySpeed: 3000,
+  pauseOnHover: true,
+  enableResponsiveBreakpoints: true,
+  responsiveBreakpoints: {
+  portrait: {
+  changePoint: 480,
+  visibleItems: 1
+  },
+  landscape: {
+  changePoint: 640,
+  visibleItems: 2
+  },
+  tablet: {
+  changePoint: 768,
+  visibleItems: 2
+  }
+  }
+  });
+  });
+// //flexisel (for special offers)
+// password-script
+// //password-script
+// smoothscroll
+script(src='/public/js/SmoothScroll.min.js')
+// //smoothscroll
+// start-smooth-scrolling
+script(src='/public/js/move-top.js')
+script(src='/public/js/easing.js')
+script.
+  jQuery(document).ready(function ($) {
+  $(".scroll").click(function (event) {
+  event.preventDefault();
+  $('html,body').animate({
+  scrollTop: $(this.hash).offset().top
+  }, 1000);
+  });
+  });
+// //end-smooth-scrolling
+// smooth-scrolling-of-move-up
+// //smooth-scrolling-of-move-up
+// for bootstrap working
+script(src='/public/js/bootstrap.js')
+// //for bootstrap working
+// //js-files
+

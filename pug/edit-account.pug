@@ -1,0 +1,88 @@
+
+extends layout.pug
+
+block content
+    // //page
+    // checkout page
+    .privacy
+    .container(style="background:white; min-height:30rem;")
+        // tittle heading
+        h1.tittle-w3l.previewName Account
+        // //tittle heading
+        .checkout-right
+        .Edit.wrapper.col-md-6
+          .post
+            h2 Edit Account Info
+            br
+            br
+            .content
+              form
+                label(style="display: block ")
+                  | new username
+                  br
+                  input(type='username' name='username')
+                  br
+                  br
+                label(style="display: block ")
+                  | new password
+                  br
+                  input(type='password' name='password')
+                  br
+                  br
+                label(style="display: block ")
+                  | confirm password
+                  br
+                  input(type='password' name='confirmPassword')
+                  br
+                  br
+                button.action-button(type='button') Update
+                br
+              footer.response
+                section.response-section
+        // Editv3 edits only address in account
+        .Editv3.wrapper.col-md-6
+          .post
+            h2 Edit only address
+            br
+            br
+            .content
+              form
+                label(style="display: block ")
+                  | street
+                  br
+                  input(type='text' name='address')
+                  br
+                  br
+                label(style="display: block ")
+                  | city
+                  br
+                  input(type='text' name='city')
+                  br
+                  br
+                label(style="display: block ")
+                  | state
+                  br
+                  input(type='text' name='state')
+                  br
+                  br
+                label(style="display: block ")
+                  | country
+                  br
+                  input(type='text' name='country')
+                  br
+                  br
+                label(style="display: block ")
+                  | zip
+                  br
+                  input(type='text' name='zip')
+                  br
+                  br
+                button.action-button(type='button') Update
+                br
+              footer.response
+                section.response-section
+
+    br
+    br
+block specific-script
+    script(src="/edit-account.js")

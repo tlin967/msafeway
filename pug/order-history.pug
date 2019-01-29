@@ -1,0 +1,50 @@
+extends layout.pug
+
+block content
+    // //page
+    // checkout page
+    div
+
+        .services-breadcrumb
+          .agile_inner_breadcrumb
+            .container
+              ul.w3_short
+                li
+                  a(href='/') Home
+                  i |
+                li Order History
+    .container(style="background:white;")
+        h1.tittle-w3l
+        if orders
+            each order,index in orders
+                table
+                    thead
+                        tr 
+                            p(class="order-number" style="color:black;") &nbsp&nbsp&nbspOrder ##{index+1}
+
+                    tbody
+                        each cart in order.carts
+                            tr 
+                                td.col-md-3 
+                                    img(class="product-image" src="https://s7d2.scene7.com/is/image/ABS/"+cart.product_id+"?$ecom-product-details-desktop-jpg$&defaultImage=Not_Available", alt="")
+                                td.col-md-3
+                                    p(style="color: black;" class="product-id") #{productData[cart.product_id].name}
+                                    p(style="color: black;" class="paid-price") Paid Price: #{cart.price}
+                                td.col-md-3
+                                    p(style="color: black;" class="quantity") Quantity: #{cart.quantity}
+                                    p(style="color: black;" class="total-price") Total Price: #{ (cart.price * cart.quantity).toFixed(2)}
+                                td.co-md-3
+                                    button(class="add-to-cart-order" data-product-id=cart.product_id) Add To Cart
+                                    
+                br
+            
+
+
+                    
+
+
+
+block specific-script
+    script(src="/order-history.js")
+    
+    

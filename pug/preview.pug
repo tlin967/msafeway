@@ -1,0 +1,171 @@
+extends layout.pug
+
+block content
+    // //page
+    // checkout page
+    .privacy
+    .container(style="background:white;")
+        // tittle heading
+        br
+        br
+        h1.tittle-w3l.previewName Preview Order
+        // //tittle heading
+        .checkout-right
+        table#cartBody.timetable_sub
+            tr
+            th Product
+            th Product Name
+            th Quantity
+            th Price
+            th Total
+
+
+
+            if productData
+
+                each item,index in cartData.cartOrder
+                    - var row = productData[item]              
+            
+                    tr(class="lineItem" data-product-id = row.id)
+                        td
+                            img(class="cartImage" src="https://s7d2.scene7.com/is/image/ABS/"+row.id+"?$ecom-product-details-desktop-jpg$&defaultImage=Not_Available", alt="")
+                        td
+                            | #{row.name}
+                        td
+                            label(type="number", name="quantity", value= cartData.quantities[index])
+                                | #{cartData.quantities[index]}
+                        td(class="cartPrice" data-price=row.price)
+                            | #{row.price.toFixed(2)}
+                        td(class="itemTotalPrice")
+                            = (row.price * cartData.quantities[index]).toFixed(2)
+
+
+                    
+        
+
+        form(class="confirm-form col-md-12" action="/confirm", method="post" )
+            
+                
+
+
+            
+            fieldset.billing-address.col-md-2
+                legend Billing Address
+                label
+                | Name
+                br
+                input.name(style="background:#f1f1f1;" type='text' name='billing-name' value=billing.name disabled)
+                br
+                br
+                label
+                | street
+                br
+                input.street(style="background:#f1f1f1;" type='text' name='billing-address' value=billing.address disabled)
+                br
+                br
+                label
+                | city
+                br
+                input.city(style="background:#f1f1f1;" type='text' name='billing-city' value=billing.city disabled)
+                br
+                br
+                label
+                | state
+                br
+                input.state(style="background:#f1f1f1;" type='text' name='billing-state' value=billing.state disabled)
+                br
+                br
+                label
+                | zip
+                br
+                input.zip(style="background:#f1f1f1;" type='text' name='billing-zip' value=billing.zip disabled)
+                br
+                br
+                label
+                | country
+                br
+                input.country(style="background:#f1f1f1;" type='text' name='billing-country' value=billing.country disabled)
+
+
+            fieldset.delivery-address.col-md-2
+                legend Delivery Address
+                label
+                | Name
+                br
+                input.name(style="background:#f1f1f1;" type='text' name='delivery-name' value=delivery.name disabled)
+                br
+                br
+                label
+                | Street
+                br
+                input.street(style="background:#f1f1f1;" type='text' name='delivery-address' value=delivery.address disabled)
+                br
+                br
+                label
+                | City
+                br
+                input.city(style="background:#f1f1f1;" type='text' name='delivery-city' value=delivery.city disabled)
+                br
+                br
+                label
+                | State
+                br
+                input.state(style="background:#f1f1f1;" type='text' name='delivery-state' value=delivery.state disabled)
+                br
+                br
+                label
+                | Zip
+                br
+                input.zip(style="background:#f1f1f1;" type='text' name='delivery-zip' value=delivery.zip disabled)
+                br
+                br
+                label
+                | Country
+                br
+                input.country(style="background:#f1f1f1;" type='text' name='delivery-country' value=delivery.country disabled)
+               
+            fieldset.email.col-md-3
+                legend Email
+                
+                if userInfo
+                    input.email(style="width:100%; background:#f1f1f1;" type='text' name='email' value=userInfo.email disabled)
+                else
+                    input.email(style="width:100%; background:#f1f1f1;" type='text' name='email' value=email disabled) 
+
+            
+
+            .preview.col-md-5(style="text-align:center")
+                #couponApplied(style='color:#d60404')  
+                div(style='text-align:center' class="orderTotalPricePreview")
+                    div#totalPrice 
+                        table(align="center")
+                            tr
+                                th(style='') Item Total
+                                th(style='') #{cartData.orderTotal}
+                    
+                            if promoData
+                            
+                                tr
+                                    td(style=' font-style:italic' ) promo #{promoData.code}
+                                    th(style='') &nbsp-#{promoData.discount.toFixed(2)}
+
+                    
+                                tr
+                                    th(style='') Final Total:
+                                    th#finalPrice(style='') #{(cartData.orderTotal - promoData.discount).toFixed(2)}
+                            else
+                                tr
+                                th(style='') Final Total:
+                                th#finalPrice(style='') #{cartData.orderTotal}
+            
+                input(type="hidden", name="cart" value="") 
+                input(type="hidden", name="cartOrder" value="")
+                input(type="hidden", name="promoCode" value="")
+                button(class="continueButton")
+                    | Place Order
+
+        
+
+block specific-script
+    script(src="/preview.js")
+    

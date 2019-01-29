@@ -1,0 +1,1029 @@
+ƒ
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+	<title></title>
+	<!--/tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+  	<script>
+
+function authentication() {
+   axios({
+     method: 'get',
+     url: '/authentication',
+     //config: {headers: {'Content-Type': 'multipart/form-data'}}
+   })
+   .then((server_response) => {
+     console.log(server_response);
+     if(server_response.data === true) {
+         console.log("IT WoRKS");
+        document.getElementById("accountPage").style.display = "";
+		document.getElementById("orderHistoryPage").style.display = "";
+		document.getElementById("signIn").style.display="none";
+		document.getElementById("signOut").style.display="";
+     }
+     else {
+         console.log("It dontwork");
+         document.getElementById("accountPage").style.display = "none";
+		document.getElementById("orderHistoryPage").style.display = "none";
+		document.getElementById("signIn").style.display="";
+		document.getElementById("signOut").style.display="none";
+     }
+   })
+ }
+
+ authentication();
+
+</script>
+	<script>
+
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+
+	<base href="/">
+	<!--//tags -->
+	<link href="/public/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+	<link href="/public/css/font-awesome.css" rel="stylesheet">
+	<!--pop-up-box-->
+	<link href="/public/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+	<!--//pop-up-box-->
+	<!-- price range -->
+	<link rel="stylesheet" type="text/css" href="/public/css/jquery-ui1.css">
+	<!-- fonts -->
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+
+  
+
+
+
+  
+
+
+
+	<!-- top-header -->
+	<nav class="navbar navbar-fixed-top">
+
+	<div class="header-most-top">
+		
+
+		<div class="col-md-12 header text-right" >
+				<!-- header lists -->
+				<ul id="navList" style="text-align: center;">
+					<li class="col-md-5"></li>
+					<li class="col-md-1" style="text-align: center; color:white;">
+						<a href="/about-us">About Us</a> 
+					</li>
+					<li style="text-align: center;">  
+						<a href="/">
+							<span  aria-hidden="true"></span>Home</a>
+					</li>
+					<li id="accountPage" style="text-align: center; display:none;">
+						<a href="/edit-account">
+							<span  aria-hidden="true"></span>Account</a>
+					</li>
+
+					<li id="orderHistoryPage" style="text-align: center; display:none">
+						<a  href="/order-history">
+							<span  aria-hidden="true"></span>Order History</a>
+					</li>
+
+				
+					<li id="signIn" style="text-align: center; display: visible">
+						<a  href="#" data-toggle="modal" data-target="#myModal1">
+							<span aria-hidden="true"></span>Sign In</a>
+					</li>
+
+					<li id="signOut" style="text-align: center; display:none; ">
+						<a  onclick="signOut()" href="/" >
+							<div class="logout wrapper">
+						    <div class="post">
+						      <div class="content">
+						        <form>
+						          <button class="action-button" type="button" style="padding-top:-5px;border-style:none; background-color:transparent; color:white;">Logout</button><br />
+						        </form>
+
+						      </div>
+						    </div>
+						</div>
+					</li>
+
+					
+					<li name="cart" id="navbar-cart">
+						<a>Cart
+						<form id="navbar-cart-form" action="/cart" method="post">
+							<input type="hidden" name="cart" value=""> </input>
+							<input type="hidden" name="cartOrder" value=""> </input>
+						</form>
+						</a>
+
+
+					</li>
+				</ul>
+				<!-- //header lists -->
+				
+				<div class="clearfix"></div>
+			</div>
+	</div>
+	<!-- //top-header -->
+	<!-- header-bot-->
+	<div class="header-bot">
+		<div class="header-bot_inner_wthreeinfo_header_mid">
+			<!-- header-bot-->
+			<div class="col-md-3 logo_agile">
+				<h1 style="padding-top:.05em;">
+					<a href="/">
+						<span>S</span>JSU
+						<span>M</span>arket
+						<img style="max-width: 40px; height: auto; " src="/public/images/safeway-logo.png" alt=" ">
+					</a>
+				</h1>
+			</div>
+			<!-- header-bot -->
+			<div class="col-md-9 header" style="padding-top: .1em;">
+
+			<div class="dropdown col-md-3" style="display:inline;">
+			  <button style="background:transparent;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    Food 
+			    										<span class="caret"></span>
+
+			  </button>
+			  <ul class="dropdown-menu col-md-4" aria-labelledby="dropdownMenuButton">
+		
+													
+													<li>
+														<a href="/products?category=Bread & Bakery">Bread & Bakery</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=Breakfast & Cereal">Breakfast & Cereal</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=Canned Goods & Soups">Canned Goods & Soups</a>
+													</li>
+													</br>
+													
+												
+													<li>
+														<a href="/products?category=Condiments, Spice & Bake">Condiments, Spice & Bake</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=Cookies, Snacks & Candy">Cookies, Snacks & Candy</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=Dairy, Eggs & Cheese">Dairy, Eggs & Cheese</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=Deli">Deli</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=Frozen Foods">Frozen Foods</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=Fruits & Vegetables">Fruits & Vegetables</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=Grains, Pasta & Sides">Grains, Pasta & Sides</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=International Cuisine">International Cuisine</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=Meat & Seafood">Meat & Seafood</a>
+													</li>
+													
+
+													
+
+												</ul>
+			</div>
+
+			<div class="dropdown col-md-4" style="display:inline;">
+			  <button style="background:transparent;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    Beverages 
+			    										<span class="caret"></span>
+
+			  </button>
+			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		
+													
+													<li>
+														<a href="/products?category=Beverages">Beverages</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=Wine">Wine</a>
+													</li>
+													</br>
+													<li>
+														<a href="/products?category=Beer & Spirits">Beer & Spirits</a>
+													</li>
+													</br>
+													
+												
+													
+													
+
+												</ul>
+			</div>
+
+			<div class="dropdown col-md-4" style="display:inline;">
+			  <button style="background:transparent;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    Household 
+			    										<span class="caret"></span>
+
+			  </button>
+			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<li>
+					<a href="/products?category=Baby Care">Baby Care</a>
+				</li>
+				</br>
+				<li>
+					<a href="/products?category=Paper, Cleaning & Home">Paper, Cleaning & Home</a>
+				</li>
+				</br>
+				<li>
+					<a href="/products?category=Personal Care & Health">Personal Care & Health</a>
+				</li>
+				</br>
+				<li>
+					<a href="/products?category=Pet Care">Pet Care</a>
+				</li>
+													
+
+													
+
+			   </ul>
+			</div>
+				
+
+				<form class="form-inline" style="padding-top: .4em;" action="/products">
+   					<input class="form-control form-control-sm mr-2 w-100" type="text" placeholder="Search" aria-label="Search" style="width:95%" name="searchTerm">
+				</form>
+				<!-- //header lists -->
+				<!-- search -->
+				
+				<!-- //search -->
+				
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<div class="alert alert-success alert-dismissable">
+    <input type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</input>
+             Added To Cart.
+        </div>
+	</nav>
+
+	<!-- shop locator (popup) -->
+	
+	<!-- //shop locator (popup) -->
+	<!-- signin Model -->
+	<!-- Modal1 -->
+	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body modal-body-sub_agile">
+					<div class="main-mailposi">
+						<span class="fa fa-envelope-o" aria-hidden="true"></span>
+					</div>
+					<div class="modal_body_left modal_body_left1">
+						<h3 class="agileinfo_sign">Sign In </h3>
+						<p>
+							Sign In now. Don't have an account?
+							<a href="#" data-toggle="modal" data-target="#myModal2">
+								 Sign Up Now</a>
+						</p>
+						<div class="login wrapper">
+						    <div class="post">
+						      <h2></h2>
+						      </br>
+						      <div class="content">
+						        <form>
+						          <label>Email<input type="email" name="email"  required=""></input></label> </br>
+						          <label>Password<input type="password" name="password"  required=""></input></label>
+						          </br>
+						          <button class="action-button" type="submit" id="logInButton">Log In</button><br />
+						        </form>
+						        <footer class="response">
+						          <section class="response-section">
+						          </section>
+						        </footer>
+						      </div>
+						    </div>
+						  </div>
+
+
+						<p>
+							<a href="#" data-toggle="modal" data-target="#myModal3">
+								Forgot your password?</a>
+						</p>
+
+					</div>
+				</div>
+			</div>
+			<!-- //Modal content-->
+		</div>
+	</div>
+	<!-- //Modal1 -->
+	<!-- //signin Model -->
+	<!-- signup Model -->
+	<!-- Modal2 -->
+	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body modal-body-sub_agile">
+					<div class="main-mailposi">
+						<span class="fa fa-envelope-o" aria-hidden="true"></span>
+					</div>
+					<div class="modal_body_left modal_body_left1">
+						<h3 class="agileinfo_sign">Sign Up</h3>
+						<p>
+							Come join SJSU Market! Let's set up your Account.
+						</p>
+					<div class="signup wrapper">
+ 
+      <div class="signup wrapper">
+    <div class="post">
+      <h2></h2>
+      <div class="content">
+
+        <form>
+          <label>Email<input type="email" name="email"></input></label> </br>
+          <label>Username<input type="text" name="username"></input></label> </br>
+          <label>Password<input type="password" name="password"></input></label> </br>
+          <button class="action-button" type="button" id="signUpButton">Sign Up</button><br/>
+        </form>
+
+        <footer class="response" style="display:none">Response
+          <section class="response-section">
+          </section>
+        </footer>
+      </div>
+    </div>
+  </div>
+    </div>
+  
+						
+					</div>
+				</div>
+			</div>
+			<!-- //Modal content-->
+		</div>
+	</div>
+	<!-- //Modal2 -->
+
+
+	<div class="modal fade" id="myModal3" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body modal-body-sub_agile">
+					<div class="main-mailposi">
+						<span class="fa fa-envelope-o" aria-hidden="true"></span>
+					</div>
+					<div class="modal_body_left modal_body_left1">
+						<h3 class="agileinfo_sign">WE CAN HELP.</h3>
+							<div class="recovery wrapper">
+    <div class="post">
+      <h2>Forgot Password</h2>
+      </br>
+      </br>
+      <div class="content">
+        <form>
+          <label>Email</label>
+          <input type="email" name="email" required=""></input>
+          <button class="action-button" data-dismiss="modal" id="forgotButton" type="submit">Recover Password</button>
+        </form>
+        <footer>
+          <div class="response" style="display:none">Response 
+            <section class="response-section">
+            </section>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+
+						
+					</div>
+				</div>
+			</div>
+			<!-- //Modal content-->
+		</div>
+	</div>
+
+	<!-- //signup Model -->
+	<!-- //header-bot -->
+	<!-- navigation -->
+	
+	<!-- //navigation -->
+	<!-- banner -->
+
+	<div style="min-height: 10rem"></div>
+	<div id="myCarousel" class="carousel slide" style="" data-ride="carousel">
+		<!-- Indicators-->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1" class=""></li>
+		</ol>
+		<div class="carousel-inner" role="listbox">
+			<div class="item active">
+				<div class="container">
+					<div class="carousel-caption">
+						<h3>Big
+							<span>Savings</span>
+						</h3>
+						<p>Get
+							<span>10%</span> Entire Cart With Code <span> 10CART </span> </p> 
+						<a class="button2" href="/products">Shop Now </a>
+					</div>
+				</div>
+			</div>
+			<div class="item item2">
+				<div class="container">
+					<div class="carousel-caption">
+						<h3>GET READY FOR THE HOLIDAY SEASON
+							<span></span>
+						</h3>
+						<p>
+							<span></span> </p>
+						<a class="button2" href="/products">Shop Now </a>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+	</div>
+	<!-- //banner -->
+
+
+
+<!-- <script>
+
+
+
+
+
+if (if session exists){
+	console.log("yee");
+	document.getElementById("accountPage").style.display = "";
+	document.getElementById("orderHistoryPage").style.display = "";
+	document.getElementById("signIn").style.display="none";
+	document.getElementById("signOut").style.display="";
+}
+
+make a request to the server, for the session Table, 
+
+if the session table == empty, user is logged out
+if session table != empty, user is logged in
+
+else if (is session doesnt exist ){
+	document.getElementById("accountPage").style.display = "none";
+	document.getElementById("orderHistoryPage").style.display = "none";
+	document.getElementById("signIn").style.display="";
+	document.getElementById("signOut").style.display="none";
+}
+
+
+
+</script> -->
+
+
+<script>
+
+var cartLI = document.querySelector("#navbar-cart")
+cartLI.addEventListener("click", function(event){
+	console.log("YEET")
+
+    var cartJSON = localStorage.getItem("cart")
+    var cart = JSON.parse(cartJSON)
+    console.log(`cart is ${cart}`)
+
+    var productIDs = []
+    for (productID in cart){
+        console.log(productID)
+        productIDs.push(parseInt(productID))
+    }
+
+    var cartOrderJSON = localStorage.getItem("cartOrder")
+    var cartOrder = JSON.parse(cartOrderJSON)
+
+    
+    console.log(cartLI)
+    var cartSubmitForm = cartLI.querySelector("form")
+    var cartSubmitFormInputCart = cartSubmitForm.querySelector("input[name=cart]")
+    console.log(`cartJSON is ${cartJSON}`)
+
+    console.log(`productIDs ${productIDs}`)
+    cartSubmitFormInputCart.value = cartJSON
+
+    var cartSubmitFormInputCartOrder = cartSubmitForm.querySelector("input[name=cartOrder]")
+    cartSubmitFormInputCartOrder.value = cartOrderJSON
+    cartSubmitForm.submit()
+})
+
+</script>
+<script>
+  // These lines of code register an html element, in this case, a button, with a corresponding function that will be run when the button is clicked. 
+  document.querySelector("div.signup button").addEventListener("click", signUp)
+  document.querySelector("div.login button").addEventListener("click", login)
+  document.querySelector("div.logout button").addEventListener("click", logout)
+  
+  document.querySelector("div.recovery button").addEventListener("click", postRecoveryData)
+    
+  /* 
+  EXAMPLE HTML JAVASCRIPT FUNCTION LINK
+  document.querySelector("div.SAMPLE-CLASS button").addEventListener("click", doSomething)
+  */
+
+
+  /* EXAMPLE JAVASCRIPT FUNCTION
+  function doSomething() {
+    var myForm = document.querySelector("div.SAMPLE-CLASS form")
+    var responseFooter = document.querySelector("div.SAMPLE-CLASS footer section.response-section")
+    console.log(myForm)
+    console.log(responseFooter)
+    var formData = new FormData(myForm)
+    // POST THE FORM DATA USING METHOD OF CHOOSING ie fetch/axios
+    axios({
+      method: 'post',
+      url: '/SOME-PATH-ON-SERVER',
+      data: formData,
+      config: { headers: { 'Content-Type': 'multipart/form-data' } }
+    })
+    .then( (server_response)=>{
+      console.log(server_response)
+      console.log(server_response.data)
+      // ASSUMING SERVER SENDS A RESPONSE BACK
+      response.innerHTML = server_response.status + "\n" + JSON.stringify(server_response.data)
+      // OPTIONALLY DO SOMETHING WITH RESPONSE TO SERVER
+    })
+  }
+  */
+
+
+
+
+
+
+/* POSSIBLE DEPRECATED EXAMPLE
+    function getRecoveryEmailAsJSONObject() {
+    var myForm = document.getElementById('recover-password-email-form');
+    console.log(myForm)
+    var formData = new FormData(myForm)
+    return formData
+
+  }
+
+  // This function uses fetch to make a http POST request that contains the form data, and sends the request to the server
+  function postRecoveryData() {
+    url = "/recovery"
+    console.log("hello")
+    data = getRecoveryEmailAsJSONObject()
+    console.log(data)
+    // Default options are marked with *
+    return fetch(url, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      // headers: {
+      //     "Content-Type": "application/json; charset=utf-8",
+      //     // "Content-Type": "application/x-www-form-urlencoded",
+      // },
+      redirect: "follow", // manual, *follow, error
+      referrer: "no-referrer", // no-referrer, *client
+      body: data, // body data type must match "Content-Type" header
+    })
+      .then(response => {
+        let section = document.getElementById("recover-password-response")
+        section.innerHTML = ` ${response.status} ${response.statusText}`
+        response.json()  // parses response to JSON
+          // might not be needed if no json returned in response
+
+          .then(body => {
+            // doesnt get here when theres no json response above
+            console.log("world")
+
+            if (response.status != 200) {
+              console.log("error")
+            }
+          })
+      });
+  }
+
+*/
+function preventAutomaticGETRequestForTypeEqualsSubmit(e){
+    e.preventDefault()
+  }
+
+
+function postRecoveryData() {
+	console.log("YEET")
+    url = "/recovery"
+    console.log("hello")
+    var myForm = document.querySelector("div.recovery form")
+
+    // https://triangle717.wordpress.com/2015/12/14/js-avoid-duplicate-listeners/
+    myForm.addEventListener('submit', preventAutomaticGETRequestForTypeEqualsSubmit)
+    // myForm.removeEventListener('submit', preventAutomaticGETRequestForTypeEqualsSubmit)
+    if (!myForm.checkValidity()) {
+      return
+    }
+    console.log("form valid")
+      console.log(myForm)
+      formData = new FormData(myForm)
+    console.log(formData)
+    var response = document.querySelector("div.recovery footer section.response-section")
+    var responseFooter = document.querySelector("div.recovery footer section.response-section")
+    console.log(responseFooter)
+
+    // Default options are marked with *
+    return fetch(url, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+      //     "Content-Type": "application/json; charset=utf-8",
+          // "Content-Type": "application/x-www-form-urlencoded",
+          // "Content-Type": 'multipart/form-data', // dont need this in multi-form bc alreadeey set
+          // https://stackoverflow.com/questions/35192841/fetch-post-with-multipart-form-data#35206069
+      },
+      redirect: "follow", // manual, *follow, error
+      referrer: "no-referrer", // no-referrer, *client
+      body: formData, // body data type must match "Content-Type" header
+    })
+      .then(server_response => {
+        response.innerHTML = ` ${server_response.status} ${server_response.statusText}`
+        console.log(server_response.body)
+        // server_response.json()  // parses response to JSON
+        //   // might not be needed if no json returned in response
+        //   .then(body => {
+        //     // doesnt get here when theres no json response above
+        //     console.log("world")
+        //     if (server_response.status != 200) {
+        //       console.log("error")
+        //     }
+        //   })
+      });
+  }
+
+
+  // This function uses axios, an external npm module to create the POST request and send the form data to the server.
+  function signUp() {
+    var myForm = document.querySelector("div.signup form")
+    var response = document.querySelector("div.signup footer section.response-section")
+    
+      //Rudimentary checks to ensure that these signup fields (email, username, password) are not empty.
+    	if (myForm.email.value == "")						
+      { 
+        window.alert("Please enter your email."); 
+        myForm.email.focus(); 
+        return false; 
+      } 
+
+      if (myForm.username.value == "")								 
+      { 
+        window.alert("Please enter your username."); 
+        myForm.username.focus(); 
+        return false; 
+      } 
+
+      if (myForm.password.value == "")								 
+      { 
+        window.alert("Please enter your password."); 
+        myForm.password.focus(); 
+        return false; 
+      } 
+    
+    console.log(myForm)
+    var formData = new FormData(myForm)
+    axios({
+      method: 'post',
+      url: '/signup',
+      data: formData,
+      config: { headers: { 'Content-Type': 'multipart/form-data' } }
+    })
+    .then( (server_response)=>{
+      // response.innerHTML = JSON.parse(server_response.data)
+      console.log(server_response)
+      console.log(server_response.data)
+      response.innerHTML = server_response.status + "\n" + JSON.stringify(server_response.data)
+      // `Status ${server_response.status}
+      if (server_response.status == 400){
+
+      }
+
+      else {
+      	      location.reload();
+      }
+    })
+    .catch(function(error){
+      if(error.response){
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        response.innerHTML = error.response.status + "\n" + error.response.data
+      }
+    })
+  }
+
+
+  function login() {
+
+    var myForm = document.querySelector("div.login form")
+    myForm.addEventListener('submit', function(e){
+      e.preventDefault()
+    })
+      if (! myForm.checkValidity()){
+        return
+      }
+     console.log("form valid")
+
+
+    var response = document.querySelector("div.login footer section.response-section")
+    console.log(myForm)
+    var formData = new FormData(myForm)
+    axios({
+      method: 'post',
+      url: '/login',
+      data: formData,
+      config: { headers: { 'Content-Type': 'multipart/form-data' } }
+    })
+    .then( (server_response)=>{
+      // response.innerHTML = JSON.parse(server_response.data)
+      console.log(server_response)
+      console.log(server_response.data)
+      response.innerHTML = server_response.status + "\n" + JSON.stringify(server_response.data)
+  	  
+      location.reload();
+      // `Status ${server_response.status}
+      //location.reload(forceGet);
+    })
+    .catch(function(error){
+      if(error.response){
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        if (error.response.status == 401){
+        response.innerHTML = "Invalid email and/or password"
+    	}
+      }
+    })
+  }
+
+
+  function logout() {
+    var myForm = document.querySelector("div.logout form")
+    myForm.addEventListener('submit', function(e){
+      e.preventDefault()
+    })
+      if (! myForm.checkValidity()){
+        return
+      }
+     console.log("form valid")
+     location.reload();
+
+
+    var response = document.querySelector("div.logout footer section.response-section")
+    console.log(myForm)
+    var formData = new FormData(myForm)
+    axios({
+      method: 'get',
+      url: '/logout',
+      data: formData,
+      config: { headers: { 'Content-Type': 'multipart/form-data' } }
+    })
+    .then( (server_response)=>{
+      // response.innerHTML = JSON.parse(server_response.data)
+      console.log(server_response)
+      console.log(server_response.data)
+      response.innerHTML = server_response.status + "\n" + JSON.stringify(server_response.data)
+      // `Status ${server_response.status}
+    })
+    .catch(function(error){
+      if(error.response){
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        response.innerHTML = error.response.status + "\n" + error.response.data
+      }
+    })
+  }
+
+
+</script>
+
+<script>
+
+function authentication() {
+   axios({
+     method: 'get',
+     url: '/authentication',
+     //config: {headers: {'Content-Type': 'multipart/form-data'}}
+   })
+   .then((server_response) => {
+     console.log(server_response);
+     if(server_response.data === true) {
+         console.log("IT WoRKS");
+        document.getElementById("accountPage").style.display = "";
+		document.getElementById("orderHistoryPage").style.display = "";
+		document.getElementById("signIn").style.display="none";
+		document.getElementById("signOut").style.display="";
+     }
+     else {
+         console.log("It dontwork");
+         document.getElementById("accountPage").style.display = "none";
+		document.getElementById("orderHistoryPage").style.display = "none";
+		document.getElementById("signIn").style.display="";
+		document.getElementById("signOut").style.display="none";
+     }
+   })
+ }
+
+ authentication();
+
+</script>
+	
+	
+
+
+	<!-- js-files -->
+	<!-- jquery -->
+	<script src="/public/js/jquery-2.1.4.min.js"></script>
+	<!-- //jquery -->
+
+	<!-- popup modal (for signin & signup)-->
+	<script src="/public/js/jquery.magnific-popup.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('.popup-with-zoom-anim').magnificPopup({
+				type: 'inline',
+				fixedContentPos: false,
+				fixedBgPos: true,
+				overflowY: 'auto',
+				closeBtnInside: true,
+				preloader: false,
+				midClick: true,
+				removalDelay: 300,
+				mainClass: 'my-mfp-zoom-in'
+			});
+
+		});
+	</script>
+	<!-- Large modal -->
+	<!-- <script>
+		$('#').modal('show');
+	</script> -->
+	<!-- //popup modal (for signin & signup)-->
+
+	<!-- cart-js -->
+	<script src="/public/js/minicart.js"></script>
+	<script>
+		paypalm.minicartk.render(); //use only unique class names other than paypalm.minicartk.Also Replace same class name in css and minicart.min.js
+
+		paypalm.minicartk.cart.on('checkout', function (evt) {
+			var items = this.items(),
+				len = items.length,
+				total = 0,
+				i;
+
+			// Count the number of each item in the cart
+			for (i = 0; i < len; i++) {
+				total += items[i].get('quantity');
+			}
+
+			if (total < 3) {
+				alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
+				evt.preventDefault();
+			}
+		});
+	</script>
+	<!-- //cart-js -->
+
+	<!-- price range (top products) -->
+	<script src="/public/js/jquery-ui.js"></script>
+	<script>
+		//<![CDATA[ 
+		$(window).load(function () {
+			$("#slider-range").slider({
+				range: true,
+				min: 0,
+				max: 9000,
+				values: [50, 6000],
+				slide: function (event, ui) {
+					$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+				}
+			});
+			$("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+		}); //]]>
+	</script>
+	<!-- //price range (top products) -->
+
+	<!-- flexisel (for special offers) -->
+	<script src="/public/js/jquery.flexisel.js"></script>
+	<script>
+		$(window).load(function () {
+			$("#flexiselDemo1").flexisel({
+				visibleItems: 3,
+				animationSpeed: 1000,
+				autoPlay: true,
+				autoPlaySpeed: 3000,
+				pauseOnHover: true,
+				enableResponsiveBreakpoints: true,
+				responsiveBreakpoints: {
+					portrait: {
+						changePoint: 480,
+						visibleItems: 1
+					},
+					landscape: {
+						changePoint: 640,
+						visibleItems: 2
+					},
+					tablet: {
+						changePoint: 768,
+						visibleItems: 2
+					}
+				}
+			});
+
+		});
+	</script>
+	<!-- //flexisel (for special offers) -->
+
+	<!-- password-script -->
+	
+	<!-- //password-script -->
+
+
+
+	<!-- smoothscroll -->
+	<script src="/public/js/SmoothScroll.min.js"></script>
+	<!-- //smoothscroll -->
+
+	<!-- start-smooth-scrolling -->
+	<script src="/public/js/move-top.js"></script>
+	<script src="/public/js/easing.js"></script>
+	<script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<!-- //end-smooth-scrolling -->
+
+	<!-- smooth-scrolling-of-move-up -->
+	
+	<!-- //smooth-scrolling-of-move-up -->
+
+	<!-- for bootstrap working -->
+	<script src="/public/js/bootstrap.js"></script>
+	<!-- //for bootstrap working -->
+	<!-- //js-files -->
+
+
+</body>
+
+</html>

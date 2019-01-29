@@ -1,0 +1,128 @@
+extends layout.pug
+
+block content
+    div
+        .page-head_agile_info_w3l
+        // //banner-2
+        // page
+        .services-breadcrumb
+          .agile_inner_breadcrumb
+            .container
+              ul.w3_short
+                li
+                  a(href='/') Home
+                  i |
+                li Products
+
+        div
+            br
+            .filter.wrapper
+                form
+
+                    .col-lg-1
+
+                    div(class="pagination wrapper content col-lg-4")
+                        
+                        label  Results Per Page
+                        - var resultsPerPageOptions = [10,15,20,30]              
+                        select.results-per-page
+                            if successResult.searchObject.resultsPerPage
+                                each option in resultsPerPageOptions
+                                    if (option == successResult.searchObject.resultsPerPage)
+                                        option(selected="", value=option) #{option}
+                                    else
+                                        option(value=option) #{option}
+
+                            else
+                                each option, index in resultsPerPageOptions
+                                    if (index == 0)
+                                        option(selected="", value=option) #{option}         
+                                    else
+                                        option(value=option) #{option}                
+                    
+                    div(class="pagination wrapper content pageNumberCSS")
+                         
+                        br            
+                        label  Page Number&nbsp
+                        if successResult.searchObject.pageNumber              
+                            input(style="width:4%" type="number", name="page-number", value=successResult.searchObject.pageNumber, min="0" data-prev=successResult.searchObject.pageNumber)
+                        else
+                            input(style="width:4%" type="number", name="page-number", value="0", min="0" data-prev=0)
+                        | /
+                        if successResult.searchObject.resultsPerPage 
+                            label(class="page-number-max") #{Math.floor(successResult.metadata.count/successResult.searchObject.resultsPerPage)}
+                        else
+                            label(class="page-number-max") ?
+
+                        a( id="prev-product-page" onclick="window.scrollTo(0, 250);")
+                            |    Prev
+                        a( id="next-product-page" onclick="window.scrollTo(0, 250);")
+                            |    Next
+
+                    .col-lg-4  
+
+                    
+                                
+                    .filter.wrapper.content.col-lg-4
+                        
+                        
+                        label Price Less Than:
+                        if successResult.searchObject.priceLessThan
+                            input(type="number" name="priceLessThan" min=0 step="0.01" value=successResult.searchObject.priceLessThan)
+                        else
+                            input(type="number" name="priceLessThan" min=0 step="0.01")
+                            br
+                        label Price Greater Than:
+                        if successResult.searchObject.priceGreaterThan
+                            input(type="number" name="priceGreaterThan" min=0 step="0.01" value=successResult.searchObject.priceGreaterThan)
+                        else
+                            input(type="number" name="priceGreaterThan" min=0 step="0.01")
+                            
+                        
+
+                    div(class="sort-by wrapper content col-lg-3")
+                        h3
+                        |Sort By
+                        select(class="sort-by")
+                            - var sortByOptions = ["Price Ascending","Price Descending","Name Ascending","Name Descending","Category Ascending","Category Descending"]
+                            each option in sortByOptions
+                                if(option == successResult.searchObject.sortBy)
+                                    option(selected value=option)
+                                        |#{option}
+                                else
+                                    option(value=option)
+                                        |#{option}
+                        br
+                        br
+                        br
+                    
+                    .col-lg-1
+                    .search.wrapper.content
+                        if successResult.searchObject.searchTerm
+                            input(style="display: none" type="text" name="name" data-prev=successResult.searchObject.searchTerm value=successResult.searchObject.searchTerm)
+                        else   
+                            input(style="display:none" type="text" name="name" data-prev="")
+                        if successResult.searchObject.category
+                            input(style="display:none" type="text" name="category" value=successResult.searchObject.category)
+                        else
+                            input(style="display:none" type="text" name="category")
+                    
+                        button.action-button(style="display:none" type="button") Get Results
+            .ads-grid
+                .container
+                    ul(class="products-list agileinfo-ads-display col-md-12 .product-sec1")
+                        each productObj in {successResult}
+                            each product in productObj
+                                li(class="product col-sm-4")
+                                    a(href="/products/"+product.id)
+                                        img(class="product-image" src="https://s7d2.scene7.com/is/image/ABS/"+product.id+"?$ecom-product-details-desktop-jpg$&defaultImage=Not_Available")
+                                        p(class="product-name") #{product.name}
+                                        p(class="product-price") #{product.price}
+                                    a( class="add-to-cart" data-product-id=product.id)
+                                        | Add To Cart
+
+            
+        
+block specific-script
+    script(src="/products.js")
+    

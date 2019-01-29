@@ -1,0 +1,32 @@
+extends layout.pug
+
+block content
+    // //page
+    // checkout page
+    .privacy
+    .container(style="background:white; min-height:30rem; padding-top:5rem")
+        // tittle heading
+        h1.tittle-w3l.previewName About Us
+        // //tittle heading
+        div
+            .col-md-12
+                br
+                p
+                | SJSU Market is an experimental site that seeks to improve upon the features offered by Safeway&apos;s online platform. SJSU Market is handled by
+                | a dedicated project team here in San Jose. For any questions or comments, feel free to contact us or any of our members.
+                br
+                br
+            .col-md-6
+                h5(style="font-size:1.5rem") Project Manager: Vincent Diep
+                br
+                h5(style="font-size:1.5rem") Owner: David Huynh
+                br
+            .col-md-6
+                h4(style="font-size:1.3rem") Other Developers:
+                p Batider Batbayar, Jeremiah Grande, Tommy Lin, Dung Pham, Roy Zhang
+                br
+                p Contact Us: sjsu.m.safeway+questions@gmail.com
+
+block specific-script
+    script(src="/about-us.js")
+    

@@ -1,0 +1,93 @@
+extends layout.pug
+
+block content
+    // //page
+    // checkout page
+    div
+        .services-breadcrumb
+          .agile_inner_breadcrumb
+            .container
+              ul.w3_short
+                li
+                  a(href='/') Home
+                  i |
+                li Cart
+    .container
+        // tittle heading
+        h1.tittle-w3l 
+        // //tittle heading
+        .checkout-right
+        table#cartBody.timetable_sub
+            tr
+            th Product
+            th Product Name
+            th Quantity
+            th Price
+            th Total
+            th Remove
+
+
+            if productData
+
+                each item,index in cartData.cartOrder
+                    - var row = productData[item]              
+            
+                    tr(class="lineItem" data-product-id = row.id)
+                        td
+                            img(class="cartImage" src="https://s7d2.scene7.com/is/image/ABS/"+row.id+"?$ecom-product-details-desktop-jpg$&defaultImage=Not_Available", alt="")
+                        td
+                            | #{row.name}
+                        td
+                            button(class="decrementQuantity" change=-1) -
+                            input(class="inputNumber" type="number", name="quantity", value= cartData.quantities[index], min=0, max=20, required, data-prev-value=cartData.quantities[index])
+                            button(class="incrementQuantity" change=1) +
+                        td(class="cartPrice" data-price=row.price)
+                            | #{row.price.toFixed(2)}
+
+                        td(class="itemTotalPrice")
+                            = (row.price * cartData.quantities[index]).toFixed(2)
+                        td
+                            button(class="removeItemFromCart") Remove
+
+                    
+            
+        div(class="promo col-md-6")
+            br
+            | Enter Promo Code
+            form
+                label Promo Code&nbsp
+                    input(type="text" name="promocode")
+                    
+                button(class="discountButton" type="button")  Check
+
+
+            #couponApplied(style='color:#d60404')  
+        div(style='text-align:center' class="orderTotalPrice col-md-6")
+            | Total Price 
+            div(style='text-align: right; font-size:4rem; color:#d60404;')
+            | $ 
+            span#totalPrice
+                if  cartData
+                    | #{cartData.orderTotal}
+                else
+                    | 0.00
+            br
+            span#discounts
+            br
+            span#finalPrice
+
+
+        .checkout
+            form(action="/checkout", method="post" style="text-align:center;")
+                input(type="hidden", name="cart" value="") 
+                input(type="hidden", name="cartOrder" value="")
+                input(type="hidden", name="promoCode" value="")
+                button(class="continueButton")
+                    | Checkout
+                    
+
+
+
+block specific-script
+    script(src="/cart.js")
+    

@@ -1,0 +1,66 @@
+extends layout.pug
+
+block content
+        
+
+    img(class="col-md-6" style="max-height:40rem; max-width:30rem;" src="https://s7d2.scene7.com/is/image/ABS/"+product.id+"?$ecom-product-details-desktop-jpg$&defaultImage=Not_Available")
+
+    col-md-6
+        p(class="product-name") #{product.name}
+        p(style="font-size:3rem;" class="product-price") #{product.price}
+        p(style="color:black" class="product-short-description") #{product.short_description}
+        p(style="color:black" class="product-short-description") #{product.long_description}
+        br
+        input(style="font-size:1rem" type="number" min=1 max=50 value=1)
+        | Quantity
+        br
+        br
+        input(class="add-to-cart-page" type="button" value="Add to Cart")
+
+
+    script.
+        document.querySelector('input[type="button"].add-to-cart-page').addEventListener("click", addToCart)
+
+        function addToCart(){
+            var quantity = parseInt(document.querySelector('input[type="number"]').value)
+            console.log(quantity)
+            console.log(#{product.id})
+            var productID = #{product.id}
+            var cartOrderJSON = localStorage.getItem("cartOrder")
+            var cartOrder = []
+            if( cartOrderJSON){
+                cartOrder = JSON.parse(cartOrderJSON)
+            }
+
+            
+            var cartJSON = localStorage.getItem("cart")
+            console.log(`cartJSON is ${cartJSON}`)
+            // if cart exists
+            if (cartJSON){
+                var cart = JSON.parse(cartJSON)
+                console.log(cart)
+                // if product already in cart, increase quantity
+                if (productID in cart){
+                    console.log("product is in cart already")
+                    cart[productID] += quantity
+                }
+                // else create product entry in cart
+                else{
+                    cart[productID] = quantity
+                    cartOrder.push(productID)
+                }
+
+            }
+            else{
+                console.log("cart is empty")
+                var cart = {}
+                cart[productID] = quantity
+                cartOrder.push(productID)
+            }
+            localStorage.setItem("cart", JSON.stringify(cart) )
+            localStorage.setItem("cartOrder", JSON.stringify(cartOrder) )
+            console.log(`cart modified, is  ${JSON.stringify(cart)}`)
+            console.log(`cart order modified, is  ${JSON.stringify(cartOrder)}`)
+
+
+        }

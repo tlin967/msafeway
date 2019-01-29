@@ -1,0 +1,262 @@
+extends layout.pug
+
+block content
+    // //page
+    // checkout page
+    .privacy
+    .container
+        // tittle heading
+        h3.tittle-w3l
+        | Checkout
+        // //tittle heading
+        .checkout-right
+        table#cartBody.timetable_sub
+            tr
+            th Product
+            th Product Name
+            th Quantity
+            th Price
+            th Remove
+        div
+            br
+            | Enter Promo Code 
+            input
+            button(onclick='applyDiscount()')  Submit 
+        #couponApplied(style='color:#d60404')  
+        div(style='text-align:right')
+            | Total Price 
+            div(style='text-align: right; font-size:4em; color:#d60404;')
+            | $ 
+            span#totalPrice
+        .checkout-left
+            .address_form_agile
+            h4 Add Shipping Information
+            form.creditly-card-form.agileinfo_form(action='payment.html' method='post')
+                .creditly-wrapper.w3_agileits_wrapper(class='wthree,')
+                .information-wrapper
+                    .first-row
+                    .controls
+                        input#addressName.billing-address-name(type='text' name='name' placeholder='Full Name' required='')
+                    .w3_agileits_card_number_grids
+                        .w3_agileits_card_number_grid_left
+                        .controls
+                            input#addressStreet(type='text' placeholder='Street' name='Street' required='')
+                        .w3_agileits_card_number_grid_right
+                        .controls
+                            input#addressCity(type='text' placeholder='Town/City' name='landmark' required='')
+                        .clear  
+                    .controls
+                        input#addressState(type='text' placeholder='State' name='State' required='')
+                    .controls
+                        input#addressZipCode(type='text' placeholder='Zip Code' name='zipcode' required='')
+                    button.submit.check_out(location.href='payment.html') Delivery to this Address
+            .clearfix  
+    script.
+        function applyDiscount(){
+        var total = document.getElementById("totalPrice").innerHTML;
+        var deduction = total;
+        total = total * .90;
+        total = total.toFixed(2);
+        deduction = total * .10;
+        deduction = deduction.toFixed(2);
+        document.getElementById("totalPrice").innerHTML = total;
+        document.getElementById("couponApplied").innerHTML = "A 10% Discount Of " + deduction + " Was Applied";
+        }
+    script.
+        function getAddress(){
+        var addressStreet  = document.getElementById("addressStreet").value;
+        var addressCity = document.getElementById("addressCity").value;
+        var addressState = document.getElementById("addressState").value;
+        var addressZipCode= document.getElementById("addressZipCode").value;
+        var addressInfo = {'addressStreet': addressStreet,'addressCity': addressCity, 'addressState': addressState, 'addressZipCode': addressZipCode};
+        localStorage.setItem('addressInfo', JSON.stringify(addressInfo));
+        console.log(localStorage.getItem('addressInfo'));
+        }
+    // //checkout page
+    script.
+        var cartJSON = localStorage.getItem("cart")
+        console.log(cartJSON)
+        if(cartJSON){
+            var cart = JSON.parse(cartJSON)
+            var totalPrice = 0;
+            var cartSize = Object.keys(cart).length
+            console.log(cartSize)
+            //- document.getElementById("cartNumber").innerHTML = cartSize;
+            for (key in cart){
+                
+                
+                var table = document.getElementById("cartBody");
+                var row = table.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                var image = "abc"
+                var name = key
+                var price = 100;
+                var stringPrice = "100"
+
+                console.log(stringPrice);
+                var parsePrice = parseFloat(stringPrice);
+                console.log(parsePrice);
+                totalPrice += parsePrice;
+                cell1.innerHTML = image;
+                cell2.innerHTML = name;
+                cell3.innerHTML = '<div class="quantity"><div class="quantity-select"><div class="entry value-minus">'+"-"+ '</div><div class="entry value"><span>' + 1 + '</span></div><div class="entry value-plus active">' + '+' + '</div></div></div>'
+                cell4.innerHTML = price;
+                cell5.innerHTML = '<div class="rem"><div class="close2">Remove </div></div>'
+                cell5.onclick = function() {
+                    removeRow(this);
+                    
+                    console.log("Yee");
+                    totalPrice = totalPrice - parsePrice;
+                    var total = document.getElementById("totalPrice");
+                    total.innerHTML = "Total Price " + totalPrice;
+                    
+                    document.getElementById("cartNumber").innerHTML = cartSize;
+                };
+            }
+        
+        }
+        var total = document.getElementById("totalPrice");
+        total.innerHTML += totalPrice;
+        cartSize = localStorage.length;
+        document.getElementById("cartNumber").innerHTML = cartSize;
+        
+        console.log("no cart")
+
+
+        function removeRow(row){
+            var i = row.parentNode.rowIndex;
+            console.log(i);
+            document.getElementById("cartBody").deleteRow(i);
+            }
+    // js-files
+    // jquery
+    script(src='/public/js/jquery-2.1.4.min.js')
+    // //jquery
+    // popup modal (for signin & signup)
+    script(src='/public/js/jquery.magnific-popup.js')
+    script.
+        $(document).ready(function () {
+        $('.popup-with-zoom-anim').magnificPopup({
+        type: 'inline',
+        fixedContentPos: false,
+        fixedBgPos: true,
+        overflowY: 'auto',
+        closeBtnInside: true,
+        preloader: false,
+        midClick: true,
+        removalDelay: 300,
+        mainClass: 'my-mfp-zoom-in'
+        });
+        });
+    // Large modal
+    //
+        <script>
+        $('#').modal('show');
+        </script>
+    // //popup modal (for signin & signup)
+    // cart-js
+    script(src='/public/js/minicart.js')
+    script.
+        paypalm.minicartk.render(); //use only unique class names other than paypal1.minicart1.Also Replace same class name in css and minicart.min.js
+        paypalm.minicartk.cart.on('checkout', function (evt) {
+        var items = this.items(),
+        len = items.length,
+        total = 0,
+        i;
+        // Count the number of each item in the cart
+        for (i = 0; i < len; i++) {
+        total += items[i].get('quantity');
+        }
+        if (total < 3) {
+        alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
+        evt.preventDefault();
+        }
+        });
+    // //cart-js
+    // quantity
+    script.
+        $('.value-plus').on('click', function () {
+        var divUpd = $(this).parent().find('.value'),
+        newVal = parseInt(divUpd.text(), 10) + 1;
+        divUpd.text(newVal);
+        });
+        $('.value-minus').on('click', function () {
+        var divUpd = $(this).parent().find('.value'),
+        newVal = parseInt(divUpd.text(), 10) - 1;
+        if (newVal >= 1) divUpd.text(newVal);
+        });
+    // quantity
+    script.
+        $(document).ready(function (c) {
+        $('.close1').on('click', function (c) {
+        $('.rem1').fadeOut('slow', function (c) {
+        $('.rem1').remove();
+        });
+        });
+        });
+    script.
+        $(document).ready(function (c) {
+        $('.close2').on('click', function (c) {
+        $('.rem2').fadeOut('slow', function (c) {
+        $('.rem2').remove();
+        });
+        });
+        });
+    script.
+        $(document).ready(function (c) {
+        $('.close3').on('click', function (c) {
+        $('.rem3').fadeOut('slow', function (c) {
+        $('.rem3').remove();
+        });
+        });
+        });
+    // //quantity
+    // password-script
+    script.
+        window.onload = function () {
+        document.getElementById("password1").onchange = validatePassword;
+        document.getElementById("password2").onchange = validatePassword;
+        }
+        function validatePassword() {
+        var pass2 = document.getElementById("password2").value;
+        var pass1 = document.getElementById("password1").value;
+        if (pass1 != pass2)
+        document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+        else
+        document.getElementById("password2").setCustomValidity('');
+        //empty string means no validation error
+        }
+    // //password-script
+    // smoothscroll
+    script(src='/public/js/SmoothScroll.min.js')
+    // //smoothscroll
+    // start-smooth-scrolling
+    // //end-smooth-scrolling
+    // smooth-scrolling-of-move-up
+    script.
+        $(document).ready(function () {
+        /*
+        var defaults = {
+        containerID: 'toTop', // fading element id
+        containerHoverID: 'toTopHover', // fading element hover id
+        scrollSpeed: 1200,
+        easingType: 'linear'
+        };
+        */
+        $().UItoTop({
+        easingType: 'easeOutQuart'
+        });
+        });
+    // //smooth-scrolling-of-move-up
+    // for bootstrap working
+    script(src='/public/js/bootstrap.js')
+    // //for bootstrap working
+    // //js-files
+
+
+    block specific-script
+        script(src="/cart.js")
